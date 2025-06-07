@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install libsdl2-dev -y
+
+      - name: Test project
+        run: cargo test --verbose
+
+      - name: Build project
+        run: cargo build --verbose
