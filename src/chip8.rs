@@ -4,7 +4,7 @@ mod chip8_test;
 
 use crate::memory::Memory;
 use crate::window::{HEIGHT_HI_RES, HEIGHT_LO_RES, WIDTH_HI_RES, WIDTH_LO_RES};
-use rand::Rng;
+use rand::prelude::*;
 
 const TIMER_EVERY_X_TICKS: usize = 8;
 const OPCODE_SIZE: u16 = 2;
@@ -361,8 +361,8 @@ impl Chip8 {
     }
 
     fn op_cxkk(&mut self, x: usize, kk: u8) -> ProgramCounter {
-        let mut rng = rand::thread_rng();
-        self.v[x] = rng.gen::<u8>() & kk;
+        let mut rng = rand::rng();
+        self.v[x] = rng.random::<u8>() & kk;
         ProgramCounter::Next
     }
 
